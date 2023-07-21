@@ -110,5 +110,40 @@
     "title": "3  Week 3",
     "section": "3.5 Output",
     "text": "3.5 Output\n\nTableSummary\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\nData summary\n\n\nName\noutput\n\n\nNumber of rows\n1000\n\n\nNumber of columns\n4\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n1\n\n\nnumeric\n3\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\nGender\n0\n1\n4\n11\n0\n8\n0\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\nPassed Subjects\n0\n1\n4.40\n1.28\n0.0\n4.00\n4.0\n5.00\n7\n▁▁▇▅▃\n\n\nStudent’s Avg Score\n0\n1\n79.86\n4.49\n65.7\n76.70\n80.0\n82.93\n93\n▁▃▇▅▁\n\n\nStudent ID\n0\n1\n500.50\n288.82\n1.0\n250.75\n500.5\n750.25\n1000\n▇▇▇▇▇"
+  },
+  {
+    "objectID": "2022-04.html#requirements",
+    "href": "2022-04.html#requirements",
+    "title": "4  Week 4",
+    "section": "4.1 Requirements",
+    "text": "4.1 Requirements\n\nInput the data sets\nJoin the data sets together based on their common field\nRemove any fields you don’t need for the challenge\nChange the weekdays from separate columns to one column of weekdays and one of the pupil’s travel choice\nGroup the travel choices together to remove spelling mistakes\nCreate a Sustainable (non-motorised) vs Non-Sustainable (motorised) data field \n\nScooters are the child type rather than the motorised type\n\nTotal up the number of pupil’s travelling by each method of travel \nWork out the % of trips taken by each method of travel each day\n\nRound to 2 decimal places\n\nOutput the data\n\n\n\n\n\n\n\n% of Trips Taken\n\n\n\nAlthough we are being asked for the percent, the output shows the fraction. For consistency, we show the fraction."
+  },
+  {
+    "objectID": "2022-04.html#setup",
+    "href": "2022-04.html#setup",
+    "title": "4  Week 4",
+    "section": "4.2 Setup",
+    "text": "4.2 Setup\n\nlibrary(tidyverse)\nraw_1 &lt;- googlesheets4::read_sheet(\"https://docs.google.com/spreadsheets/d/1SXZMY-kVx2Dz5q3DoFtqO7JRr3u8rGRF_-vE0lwii3I\")\nraw_2 &lt;- googlesheets4::read_sheet(\"https://docs.google.com/spreadsheets/d/18tBSHiZFM51u5X5WZYyXHSqI0vC1REscBSs1KJ4S37c\")"
+  },
+  {
+    "objectID": "2022-04.html#eda",
+    "href": "2022-04.html#eda",
+    "title": "4  Week 4",
+    "section": "4.3 EDA",
+    "text": "4.3 EDA\n\nTable 1Summary 1Table 2Summary 2\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\nData summary\n\n\nName\nraw_1\n\n\nNumber of rows\n1000\n\n\nNumber of columns\n9\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n6\n\n\nnumeric\n2\n\n\nPOSIXct\n1\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\npupil first name\n0\n1\n2\n12\n0\n935\n0\n\n\npupil last name\n0\n1\n3\n17\n0\n989\n0\n\n\ngender\n0\n1\n4\n11\n0\n8\n0\n\n\nParental Contact Name_1\n0\n1\n2\n15\n0\n945\n0\n\n\nParental Contact Name_2\n0\n1\n2\n14\n0\n940\n0\n\n\nPreferred Contact Employer\n0\n1\n3\n13\n0\n353\n0\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\nid\n0\n1\n500.50\n288.82\n1\n250.75\n500.5\n750.25\n1000\n▇▇▇▇▇\n\n\nParental Contact\n0\n1\n1.49\n0.50\n1\n1.00\n1.0\n2.00\n2\n▇▁▁▁▇\n\n\n\nVariable type: POSIXct\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nmedian\nn_unique\n\n\n\n\nDate of Birth\n0\n1\n2011-09-01\n2015-08-30\n2013-08-21 12:00:00\n713\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\nData summary\n\n\nName\nraw_2\n\n\nNumber of rows\n1000\n\n\nNumber of columns\n6\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n5\n\n\nnumeric\n1\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\nM\n0\n1\n3\n15\n0\n10\n0\n\n\nTu\n0\n1\n3\n15\n0\n10\n0\n\n\nW\n0\n1\n3\n15\n0\n11\n0\n\n\nTh\n0\n1\n3\n15\n0\n8\n0\n\n\nF\n0\n1\n3\n15\n0\n11\n0\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\nStudent ID\n0\n1\n500.5\n288.82\n1\n250.75\n500.5\n750.25\n1000\n▇▇▇▇▇"
+  },
+  {
+    "objectID": "2022-04.html#preppin",
+    "href": "2022-04.html#preppin",
+    "title": "4  Week 4",
+    "section": "4.4 Preppin",
+    "text": "4.4 Preppin\n\noutput &lt;- raw_2 |&gt;\n  pivot_longer(-`Student ID`,\n               names_to = \"Weekday\",\n               values_to = \"Method of Travel\") |&gt;\n  mutate(\n    `Method of Travel` = case_match(\n      `Method of Travel`,\n      \"Bycycle\" ~ \"Bicycle\",\n      \"Carr\" ~ \"Car\",\n      c(\"Scootr\", \"Scoter\") ~ \"Scooter\",\n      c(\"Walkk\", \"Wallk\", \"WAlk\", \"Waalk\") ~ \"Walk\",\n      \"Helicopeter\" ~ \"Helicopter\",\n      .default = `Method of Travel`\n    ),\n    `Sustainable?` = case_match(\n      `Method of Travel`,\n      c(\"Bicycle\", \"Dad's Shoulders\", \"Hopped\", \"Jumped\", \n        \"Mum's Shoulders\", \"Scooter\", \"Skipped\", \"Walk\") ~ \"Sustainable\",\n      .default = \"Non-Sustainable\"\n      )\n  ) |&gt; \n  count(`Sustainable?`, `Method of Travel`, Weekday, name = \"Number of Trips\") |&gt; \n  add_count(Weekday, wt = `Number of Trips`, name = \"Trips per Day\") |&gt; \n  mutate(`% of trips per day` = round(`Number of Trips` / `Trips per Day`, 2))"
+  },
+  {
+    "objectID": "2022-04.html#output",
+    "href": "2022-04.html#output",
+    "title": "4  Week 4",
+    "section": "4.5 Output",
+    "text": "4.5 Output\n\nTableSummary\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\nData summary\n\n\nName\noutput\n\n\nNumber of rows\n39\n\n\nNumber of columns\n6\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n3\n\n\nnumeric\n3\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\nSustainable?\n0\n1\n11\n15\n0\n2\n0\n\n\nMethod of Travel\n0\n1\n3\n15\n0\n12\n0\n\n\nWeekday\n0\n1\n1\n2\n0\n5\n0\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\nNumber of Trips\n0\n1\n128.21\n139.31\n3\n11.00\n72.00\n208.50\n510.00\n▇▂▂▁▁\n\n\nTrips per Day\n0\n1\n1000.00\n0.00\n1000\n1000.00\n1000.00\n1000.00\n1000.00\n▁▁▇▁▁\n\n\n% of trips per day\n0\n1\n0.13\n0.14\n0\n0.01\n0.07\n0.21\n0.51\n▇▂▂▁▁"
   }
 ]
