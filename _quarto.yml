@@ -8,13 +8,12 @@ book:
   chapters:
     - index.qmd
     - 2022-01.qmd
+    - 2022-02.qmd
   
 format:
   html:
     theme: cosmo
     df-print: paged 
-  pdf:
-    documentclass: scrreprt
 
 editor: visual
 

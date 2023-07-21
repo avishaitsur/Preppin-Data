@@ -1,0 +1,78 @@
+# Week 2
+
+## Requirements
+
+-   [Input the data set](https://drive.google.com/file/d/1AdfaMvu7Wy9osNfIcOuOiLeZE4hk1vDc/view?usp=sharing)
+
+    -   Removing any unnecessary fields (parental fields) will make this challenge easier to see what is happening at each step
+
+-   Format the pupil's name in *First Name Last Name* format (ie Carl Allchin)
+
+-   Create the date for the pupil's birthday in calendar year 2022 (not academic year) ([*link*](https://www.preppindata.com/howto/how-to-use-date-functions))
+
+-   Work out what day of the week the pupil's birthday falls on ([*link*](https://www.preppindata.com/howto/how-to-create-date-parts))
+
+    -   Remember if the birthday falls on a Saturday or Sunday, we need to change the weekday to Friday
+
+-   Work out what month the pupil's birthday falls within
+
+-   Count how many birthdays there are on each weekday in each month ([*link*](https://www.youtube.com/watch?v=zsoJgLRdKjs))
+
+    -   Note: there is an issue with my output as I use the birthday month rather than the 2022 date of the birthday (thanks Rosario). Output updated 17/1/22 9:45 PM GMT)
+
+-   [Output the data](https://drive.google.com/file/d/13XzvSduJIrVh9n3PBHz3S2Nt66vb86UY/view?usp=sharing)
+
+## Setup
+
+```{r}
+#| message: false
+library(tidyverse)
+raw <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1SXZMY-kVx2Dz5q3DoFtqO7JRr3u8rGRF_-vE0lwii3I")
+```
+
+## EDA
+
+::: panel-tabset
+## Table
+
+```{r}
+#| echo: false
+raw
+```
+
+## Summary
+
+```{r}
+#| echo: false
+skimr::skim(raw)
+```
+:::
+
+## Preppin
+
+```{r}
+raw |> 
+  transmute(
+    "Pupil's Name" = paste(`pupil first name`, `pupil last name`),
+    `Date of Birth` = as_date(`Date of Birth`),
+    "This Year's Birthday" = 
+  )
+```
+
+## Output
+
+::: panel-tabset
+## Table
+
+```{r}
+#| echo: false
+output
+```
+
+## Summary
+
+```{r}
+#| echo: false
+skimr::skim(output)
+```
+:::

@@ -40,16 +40,17 @@ raw <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1SXZMY-
 ## Table
 
 ```{r}
+#| echo: false
 raw
 ```
 
 ## Summary
 
 ```{r}
+#| echo: false
 skimr::skim(raw)
 ```
 :::
-
 
 ## Preppin
 
@@ -81,12 +82,14 @@ output <- raw |>
 ## Table
 
 ```{r}
+#| echo: false
 output
 ```
 
 ## Summary
 
 ```{r}
+#| echo: false
 skimr::skim(output)
 ```
 :::
