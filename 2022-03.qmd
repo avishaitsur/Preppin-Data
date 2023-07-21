@@ -1,0 +1,102 @@
+# Week 3
+
+## Requirements
+
+-   [Input both data sets](https://drive.google.com/drive/folders/1FP9EuxfRjdbhghpdWOp6Oh_MIrUAKklY?usp=sharing)
+
+-   Join the data sets together to give us the grades per student
+
+-   Remove the parental data fields, they aren't needed for the challenge this week
+
+-   Pivot the data to create one row of data per student and subject
+
+-   Rename the pivoted fields to *Subject* and *Score*
+
+-   Create an average score per student based on all of their grades
+
+-   Create a field that records whether the student passed each subject
+
+    -   Pass mark is 75 and above in all subjects
+
+-   Aggregate the data per student to count how many subjects each student passed
+
+-   Round the average score per student to one decimal place
+
+-   Remove any unnecessary fields and [output the data](https://drive.google.com/file/d/1WrsXao4IFq8T6TiTl2YcXDe5XpV2jEk4/view?usp=sharing)
+
+## Setup
+
+```{r}
+#| message: false
+library(tidyverse)
+raw_1 <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1SXZMY-kVx2Dz5q3DoFtqO7JRr3u8rGRF_-vE0lwii3I")
+raw_2 <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1K1hnY0htobsvNmmpBrXy7liAEC7AQpZgHkctqN5UrU4")
+```
+
+## EDA
+
+::: panel-tabset
+## Table 1
+
+```{r}
+#| echo: false
+raw_1
+```
+
+## Summary 1
+
+```{r}
+#| echo: false
+skimr::skim(raw_1)
+```
+
+## Table 2
+
+```{r}
+#| echo: false
+raw_2
+```
+
+## Summary 2
+
+```{r}
+#| echo: false
+skimr::skim(raw_2)
+```
+:::
+
+## Preppin
+
+```{r}
+output <- raw_1 |>
+  select(`Student ID` = id, Gender = gender) |>
+  left_join(
+    raw_2 |>
+      pivot_longer(-`Student ID`, names_to = "Subject", values_to = "Score") |>
+      summarize(
+        `Passed Subjects` = sum(Score >= 75),
+        `Student's Avg Score` = round(mean(Score), 1),
+        .by = `Student ID`
+      ),
+    by = "Student ID"
+  ) |>
+  select(`Passed Subjects`, `Student's Avg Score`, `Student ID`, Gender)
+```
+
+## Output
+
+::: panel-tabset
+## Table
+
+```{r}
+#| echo: false
+output
+```
+
+## Summary
+
+```{r}
+#| echo: false
+skimr::skim(output)
+```
+:::
