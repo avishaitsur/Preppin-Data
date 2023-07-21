@@ -22,6 +22,12 @@
 
 -   [Output the data](https://drive.google.com/file/d/13XzvSduJIrVh9n3PBHz3S2Nt66vb86UY/view?usp=sharing)
 
+::: callout-warning
+## Calendar Year
+
+Although the question specifies calendar year 2022, the output is for calendar year 2021. For consistency, we used 2021, but this can easily be changes
+:::
+
 ## Setup
 
 ```{r}
@@ -51,12 +57,29 @@ skimr::skim(raw)
 ## Preppin
 
 ```{r}
-raw |> 
+cal_year <- 2021 # Change if needed
+```
+
+```{r}
+output <- raw |> 
   transmute(
-    "Pupil's Name" = paste(`pupil first name`, `pupil last name`),
+    `Pupil's Name` = paste(`pupil first name`, `pupil last name`),
     `Date of Birth` = as_date(`Date of Birth`),
-    "This Year's Birthday" = 
-  )
+    `This Year's Birthday` = ymd(paste(
+      cal_year, 
+      month(`Date of Birth`), 
+      day(`Date of Birth`)
+      )),
+    Month = month(`Date of Birth`, label = T, abbr = F),
+    `Cake Needed On` = 
+      if_else(
+        wday(
+          `This Year's Birthday`, 
+          label = T, 
+          abbr = F) %in% c("Saturday", "Sunday"), "Friday", 
+        wday(`This Year's Birthday`, label = T, abbr = F))
+  ) |> 
+  add_count(Month, `Cake Needed On`, name = "BDs per Weekday and Month")
 ```
 
 ## Output

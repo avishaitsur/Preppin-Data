@@ -40,5 +40,40 @@
     "title": "1  Week 1",
     "section": "1.5 Output",
     "text": "1.5 Output\n\nTableSummary\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\nData summary\n\n\nName\noutput\n\n\nNumber of rows\n1000\n\n\nNumber of columns\n4\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n3\n\n\nnumeric\n1\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\nPupil’s Name\n0\n1\n9\n24\n0\n1000\n0\n\n\nParental Contact Full Name\n0\n1\n8\n24\n0\n1000\n0\n\n\nParental Contact Email Address\n0\n1\n17\n36\n0\n1000\n0\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\nAcademic Year\n0\n1\n2.52\n1.12\n1\n1.75\n3\n4\n4\n▇▇▁▇▇"
+  },
+  {
+    "objectID": "2022-02.html#requirements",
+    "href": "2022-02.html#requirements",
+    "title": "2  Week 2",
+    "section": "2.1 Requirements",
+    "text": "2.1 Requirements\n\nInput the data set\n\nRemoving any unnecessary fields (parental fields) will make this challenge easier to see what is happening at each step\n\nFormat the pupil’s name in First Name Last Name format (ie Carl Allchin)\nCreate the date for the pupil’s birthday in calendar year 2022 (not academic year) (link)\nWork out what day of the week the pupil’s birthday falls on (link)\n\nRemember if the birthday falls on a Saturday or Sunday, we need to change the weekday to Friday\n\nWork out what month the pupil’s birthday falls within\nCount how many birthdays there are on each weekday in each month (link)\n\nNote: there is an issue with my output as I use the birthday month rather than the 2022 date of the birthday (thanks Rosario). Output updated 17/1/22 9:45 PM GMT)\n\nOutput the data\n\n\n\n\n\n\n\nCalendar Year\n\n\n\nAlthough the question specifies calendar year 2022, the output is for calendar year 2021. For consistency, we used 2021, but this can easily be changes"
+  },
+  {
+    "objectID": "2022-02.html#setup",
+    "href": "2022-02.html#setup",
+    "title": "2  Week 2",
+    "section": "2.2 Setup",
+    "text": "2.2 Setup\n\nlibrary(tidyverse)\nraw &lt;- googlesheets4::read_sheet(\"https://docs.google.com/spreadsheets/d/1SXZMY-kVx2Dz5q3DoFtqO7JRr3u8rGRF_-vE0lwii3I\")"
+  },
+  {
+    "objectID": "2022-02.html#eda",
+    "href": "2022-02.html#eda",
+    "title": "2  Week 2",
+    "section": "2.3 EDA",
+    "text": "2.3 EDA\n\nTableSummary\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\nData summary\n\n\nName\nraw\n\n\nNumber of rows\n1000\n\n\nNumber of columns\n9\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n6\n\n\nnumeric\n2\n\n\nPOSIXct\n1\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\npupil first name\n0\n1\n2\n12\n0\n935\n0\n\n\npupil last name\n0\n1\n3\n17\n0\n989\n0\n\n\ngender\n0\n1\n4\n11\n0\n8\n0\n\n\nParental Contact Name_1\n0\n1\n2\n15\n0\n945\n0\n\n\nParental Contact Name_2\n0\n1\n2\n14\n0\n940\n0\n\n\nPreferred Contact Employer\n0\n1\n3\n13\n0\n353\n0\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\nid\n0\n1\n500.50\n288.82\n1\n250.75\n500.5\n750.25\n1000\n▇▇▇▇▇\n\n\nParental Contact\n0\n1\n1.49\n0.50\n1\n1.00\n1.0\n2.00\n2\n▇▁▁▁▇\n\n\n\nVariable type: POSIXct\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nmedian\nn_unique\n\n\n\n\nDate of Birth\n0\n1\n2011-09-01\n2015-08-30\n2013-08-21 12:00:00\n713"
+  },
+  {
+    "objectID": "2022-02.html#preppin",
+    "href": "2022-02.html#preppin",
+    "title": "2  Week 2",
+    "section": "2.4 Preppin",
+    "text": "2.4 Preppin\n\ncal_year &lt;- 2021 # Change if needed\n\n\noutput &lt;- raw |&gt; \n  transmute(\n    `Pupil's Name` = paste(`pupil first name`, `pupil last name`),\n    `Date of Birth` = as_date(`Date of Birth`),\n    `This Year's Birthday` = ymd(paste(\n      cal_year, \n      month(`Date of Birth`), \n      day(`Date of Birth`)\n      )),\n    Month = month(`Date of Birth`, label = T, abbr = F),\n    `Cake Needed On` = \n      if_else(\n        wday(\n          `This Year's Birthday`, \n          label = T, \n          abbr = F) %in% c(\"Saturday\", \"Sunday\"), \"Friday\", \n        wday(`This Year's Birthday`, label = T, abbr = F))\n  ) |&gt; \n  add_count(Month, `Cake Needed On`, name = \"BDs per Weekday and Month\")"
+  },
+  {
+    "objectID": "2022-02.html#output",
+    "href": "2022-02.html#output",
+    "title": "2  Week 2",
+    "section": "2.5 Output",
+    "text": "2.5 Output\n\nTableSummary\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\nData summary\n\n\nName\noutput\n\n\nNumber of rows\n1000\n\n\nNumber of columns\n6\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n2\n\n\nDate\n2\n\n\nfactor\n1\n\n\nnumeric\n1\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\nPupil’s Name\n0\n1\n8\n23\n0\n1000\n0\n\n\nCake Needed On\n0\n1\n6\n9\n0\n5\n0\n\n\n\nVariable type: Date\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nmedian\nn_unique\n\n\n\n\nDate of Birth\n0\n1\n2011-09-01\n2015-08-30\n2013-08-21\n713\n\n\nThis Year’s Birthday\n0\n1\n2021-01-01\n2021-12-31\n2021-07-08\n335\n\n\n\nVariable type: factor\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nordered\nn_unique\ntop_counts\n\n\n\n\nMonth\n0\n1\nTRUE\n12\nJul: 103, Dec: 102, Apr: 92, Nov: 92\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\nBDs per Weekday and Month\n0\n1\n23.81\n13.67\n4\n12\n19\n36\n51\n▇▅▃▃▃"
   }
 ]
