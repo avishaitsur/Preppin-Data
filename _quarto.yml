@@ -1,0 +1,20 @@
+project:
+  type: book
+
+book:
+  title: "Preppin Data 2022"
+  author: "Avishai M. Tsur, MD MHA"
+  date: today
+  chapters:
+    - index.qmd
+    - 2022-01.qmd
+  
+format:
+  html:
+    theme: cosmo
+    df-print: paged 
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+

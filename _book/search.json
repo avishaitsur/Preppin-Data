@@ -1,0 +1,44 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Preppin Data 2022",
+    "section": "",
+    "text": "Preface\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "2022-01.html#requirements",
+    "href": "2022-01.html#requirements",
+    "title": "1  Week 1",
+    "section": "1.1 Requirements",
+    "text": "1.1 Requirements\n\nInput the csv file (link above) (help)\nForm the pupil’s name correctly for the records in the format Last Name, First Name (help)\nForm the parental contact’s name in the same format as the pupil’s \n\nThe Parental Contact Name 1 and 2 are the first names of each parent.\nUse parental contact column to select which parent first name to use along with the pupil’s last name\n\nCreate the email address to contact the parent using the format Parent First Name.Parent Last Name@Employer.com\nCreate the academic year the pupils are in (help)\n\nEach academic year starts on 1st September.\nYear 1 is anyone born after 1st Sept 2014 \nYear 2 is anyone born between 1st Sept 2013 and 31st Aug 2014 etc\n\nRemove any unnecessary columns of data (help)\nOutput the data (help)"
+  },
+  {
+    "objectID": "2022-01.html#setup",
+    "href": "2022-01.html#setup",
+    "title": "1  Week 1",
+    "section": "1.2 Setup",
+    "text": "1.2 Setup\n\nlibrary(tidyverse)\nraw &lt;- googlesheets4::read_sheet(\"https://docs.google.com/spreadsheets/d/1SXZMY-kVx2Dz5q3DoFtqO7JRr3u8rGRF_-vE0lwii3I\")"
+  },
+  {
+    "objectID": "2022-01.html#eda",
+    "href": "2022-01.html#eda",
+    "title": "1  Week 1",
+    "section": "1.3 EDA",
+    "text": "1.3 EDA\n\nTableSummary\n\n\n\nraw\n\n\n\n  \n\n\n\n\n\n\nskimr::skim(raw)\n\n\nData summary\n\n\nName\nraw\n\n\nNumber of rows\n1000\n\n\nNumber of columns\n9\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n6\n\n\nnumeric\n2\n\n\nPOSIXct\n1\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\npupil first name\n0\n1\n2\n12\n0\n935\n0\n\n\npupil last name\n0\n1\n3\n17\n0\n989\n0\n\n\ngender\n0\n1\n4\n11\n0\n8\n0\n\n\nParental Contact Name_1\n0\n1\n2\n15\n0\n945\n0\n\n\nParental Contact Name_2\n0\n1\n2\n14\n0\n940\n0\n\n\nPreferred Contact Employer\n0\n1\n3\n13\n0\n353\n0\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\nid\n0\n1\n500.50\n288.82\n1\n250.75\n500.5\n750.25\n1000\n▇▇▇▇▇\n\n\nParental Contact\n0\n1\n1.49\n0.50\n1\n1.00\n1.0\n2.00\n2\n▇▁▁▁▇\n\n\n\nVariable type: POSIXct\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nmedian\nn_unique\n\n\n\n\nDate of Birth\n0\n1\n2011-09-01\n2015-08-30\n2013-08-21 12:00:00\n713"
+  },
+  {
+    "objectID": "2022-01.html#preppin",
+    "href": "2022-01.html#preppin",
+    "title": "1  Week 1",
+    "section": "1.4 Preppin",
+    "text": "1.4 Preppin\n\ncalc_year &lt;- \\(date, ref = ymd(\"2014-09-01\")){\n  ceiling((interval(date, ref) / years(1)) + 1)\n}\n\n\noutput &lt;- raw |&gt;\n  mutate(pc = if_else(\n    `Parental Contact` == 1,\n    `Parental Contact Name_1`,\n    `Parental Contact Name_2`\n    )\n    ) |&gt; \n  transmute(\n    \"Academic Year\" = calc_year(`Date of Birth`),\n    \"Pupil's Name\" = paste0(`pupil last name`, \", \", `pupil first name`),\n    \"Parental Contact Full Name\" = paste0(`pupil last name`, \", \", pc),\n    \"Parental Contact Email Address\" = paste0(pc, \".\", `pupil last name`, \"@\", `Preferred Contact Employer`, \".com\")\n    )"
+  },
+  {
+    "objectID": "2022-01.html#output",
+    "href": "2022-01.html#output",
+    "title": "1  Week 1",
+    "section": "1.5 Output",
+    "text": "1.5 Output\n\nTableSummary\n\n\n\noutput\n\n\n\n  \n\n\n\n\n\n\nskimr::skim(output)\n\n\nData summary\n\n\nName\noutput\n\n\nNumber of rows\n1000\n\n\nNumber of columns\n4\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n3\n\n\nnumeric\n1\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\nPupil’s Name\n0\n1\n9\n24\n0\n1000\n0\n\n\nParental Contact Full Name\n0\n1\n8\n24\n0\n1000\n0\n\n\nParental Contact Email Address\n0\n1\n17\n36\n0\n1000\n0\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\nAcademic Year\n0\n1\n2.52\n1.12\n1\n1.75\n3\n4\n4\n▇▇▁▇▇"
+  }
+]

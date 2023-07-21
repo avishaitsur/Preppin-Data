@@ -1,0 +1,92 @@
+# Week 1
+
+## Requirements
+
+-   Input the csv file (link above) ([*help*](https://www.youtube.com/watch?v=V_8Kb8qEtKY&list=PL_t5OlLHbVGzjl3ygGsOnXbr9sxPOrogY)*)*
+
+-   Form the pupil's name correctly for the records in the format *Last Name, First Name* ([*help*](https://www.preppindata.com/howto/how-to-use-string-functions)*)*
+
+-   Form the parental contact's name in the same format as the pupil's 
+
+    -   The Parental Contact Name 1 and 2 are the first names of each parent.
+
+    -   Use parental contact column to select which parent first name to use along with the pupil's last name
+
+-   Create the email address to contact the parent using the format *Parent First Name.Parent Last Name\@Employer.com*
+
+-   Create the academic year the pupils are in ([*help*](https://www.preppindata.com/howto/how-to-use-date-functions))
+
+    -   Each academic year starts on 1st September.
+
+    -   Year 1 is anyone born after 1st Sept 2014 
+
+    -   Year 2 is anyone born between 1st Sept 2013 and 31st Aug 2014 etc
+
+-   Remove any unnecessary columns of data ([*help*](https://www.preppindata.com/howto/how-to-filter)*)*
+
+-   Output the data ([*help*](https://www.youtube.com/watch?v=Rw4dT69aeXk&list=PL_t5OlLHbVGzjl3ygGsOnXbr9sxPOrogY&index=9))
+
+## Setup
+
+```{r}
+#| message: false
+library(tidyverse)
+raw <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1SXZMY-kVx2Dz5q3DoFtqO7JRr3u8rGRF_-vE0lwii3I")
+```
+
+## EDA
+
+::: panel-tabset
+## Table
+
+```{r}
+raw
+```
+
+## Summary
+
+```{r}
+skimr::skim(raw)
+```
+:::
+
+
+## Preppin
+
+```{r}
+calc_year <- \(date, ref = ymd("2014-09-01")){
+  ceiling((interval(date, ref) / years(1)) + 1)
+}
+```
+
+```{r}
+output <- raw |>
+  mutate(pc = if_else(
+    `Parental Contact` == 1,
+    `Parental Contact Name_1`,
+    `Parental Contact Name_2`
+    )
+    ) |> 
+  transmute(
+    "Academic Year" = calc_year(`Date of Birth`),
+    "Pupil's Name" = paste0(`pupil last name`, ", ", `pupil first name`),
+    "Parental Contact Full Name" = paste0(`pupil last name`, ", ", pc),
+    "Parental Contact Email Address" = paste0(pc, ".", `pupil last name`, "@", `Preferred Contact Employer`, ".com")
+    )
+```
+
+## Output
+
+::: panel-tabset
+## Table
+
+```{r}
+output
+```
+
+## Summary
+
+```{r}
+skimr::skim(output)
+```
+:::
