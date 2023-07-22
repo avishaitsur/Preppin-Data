@@ -11,6 +11,7 @@ book:
     - 2022-02.qmd
     - 2022-03.qmd
     - 2022-04.qmd
+    - 2022-05.qmd
   
 format:
   html:
