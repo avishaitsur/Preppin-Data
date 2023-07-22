@@ -1,0 +1,155 @@
+# Week 6
+
+## Requirements
+
+-   [Input the data](https://docs.google.com/spreadsheets/d/1kePTJ4RLkibqwb6cGBIlRT6mvR9T0E5q/edit?usp=sharing&ouid=113142875990517226017&rtpof=true&sd=true)
+
+-   Parse out the information in the Scrabble Scores Input so that there are 3 fields:
+
+    -   Tile
+
+    -   Frequency
+
+    -   Points
+
+-   Calculate the % Chance of drawing a particular tile and round to 2 decimal places
+
+    -   Frequency / Total number of tiles
+
+-   Split each of the 7 letter words into individual letters and count the number of occurrences of each letter
+
+-   Join each letter to its scrabble tile 
+
+-   Update the % chance of drawing a tile based on the number of occurrences in that word
+
+    -   If the word contains more occurrences of that letter than the frequency of the tile, set the probability to 0 - it is impossible to make this word in Scrabble
+
+    -   Remember for independent events, you multiple together probabilities i.e. if a letter appears more than once in a word, you will need to multiple the % chance by itself that many times
+
+-   Calculate the total points each word would score
+
+-   Calculate the total % chance of drawing all the tiles necessary to create each word
+
+-   Filter out words with a 0% chance
+
+-   Rank the words by their % chance (dense rank)
+
+-   Rank the words by their total points (dense rank)
+
+-   [Output the data](https://drive.google.com/file/d/1e2vsddddubIHApNXTB2O-AxQxOF9c2-T/view?usp=sharing)
+
+::: callout-note
+## Scaffold
+
+Not exactly sure why the scaffold table is needed in Tableau. We do not use it here.
+:::
+
+## Setup
+
+```{r}
+#| message: false
+#| results: hide
+library(tidyverse)
+googledrive::drive_download("https://docs.google.com/spreadsheets/d/1kePTJ4RLkibqwb6cGBIlRT6mvR9T0E5q")
+raw_1 <- readxl::read_xlsx("7 letter words.xlsx", sheet = "7 letter words")
+raw_2 <- readxl::read_xlsx("7 letter words.xlsx", sheet = "Scrabble Scores")
+raw_3 <- readxl::read_xlsx("7 letter words.xlsx", sheet = "Scaffold")
+file.remove("7 letter words.xlsx")
+```
+
+## EDA
+
+::: panel-tabset
+## Table 1
+
+```{r}
+#| echo: false
+raw_1
+```
+
+## Summary 1
+
+```{r}
+#| echo: false
+skimr::skim(raw_1)
+```
+
+## Table 2
+
+```{r}
+#| echo: false
+raw_2
+```
+
+## Summary 2
+
+```{r}
+#| echo: false
+skimr::skim(raw_2)
+```
+
+## Table 3
+
+```{r}
+#| echo: false
+raw_3
+```
+
+## Summary 3
+
+```{r}
+#| echo: false
+skimr::skim(raw_3)
+```
+:::
+
+## Preppin
+
+### 
+
+```{r}
+mid_2 <- raw_2 |>
+  extract(Scrabble, c("Points", "other"), "(^[0-9]+) points?:(.*)", convert = T) |> 
+  mutate(other = str_squish(other)) |> 
+  separate_rows(other, sep = ", ") |> 
+  separate(other, into = c("Tiles", "Frequency"), sep = " ×", convert = T) |> 
+  mutate(Chance = round(Frequency / sum(Frequency), 2))
+
+output <- raw_1 |> 
+  mutate(letters = str_split(`7 letter word`, pattern = "")) |> 
+  unnest(letters) |> mutate(letters = str_to_upper(letters)) |> 
+  count(`7 letter word`, letters) |> 
+  left_join(mid_2, by = c("letters" = "Tiles")) |> 
+  mutate(`Updated Chance` = if_else(n <= Frequency, Chance ^ n, 0)) |> 
+  summarize(
+    `% Chance` = prod(`Updated Chance`),
+    `Total Points` = sum(Points * n),
+    .by = `7 letter word`
+  ) |> 
+  filter(`% Chance` > 0) |> 
+  mutate(
+    `Points Rank` = dense_rank(desc(`Total Points`)),
+    `Likelihood Rank` = dense_rank(desc(`% Chance`))
+    ) |> 
+  select(`Points Rank`, `Likelihood Rank`, `7 letter word`, 
+         `% Chance`, `Total Points`) |> 
+  arrange(`Points Rank`)
+```
+
+## Output
+
+::: panel-tabset
+## Table
+
+```{r}
+#| echo: false
+output
+```
+
+## Summary
+
+```{r}
+#| echo: false
+skimr::skim(output)
+```
+:::
