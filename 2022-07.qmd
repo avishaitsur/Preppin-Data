@@ -1,0 +1,197 @@
+# Week 7
+
+## Requirements
+
+-   [Input the data](https://drive.google.com/drive/folders/1bg9hl-yMKlwNrLwEt_hjHE9LWPuMRK6X?usp=sharing)
+
+-   People, Location, Leader, and Dates:
+
+    -   Join the People, Location, and Leader data sets together
+
+    -   Remove the location id fields, the secondary leader id field
+
+    -   Create last name, first name fields for the agent and the leader
+
+    -   Limit the dates to just 2021 and join those to the People, Location, Leader step
+
+    -   Keep the id, agent name, leader 1, leader name, month start date, join, and location field
+
+-   Monthly Data
+
+    -   union the worksheets in the input step
+
+    -   merge the mismatched fields
+
+    -   create a month start date
+
+    -   remove the table names and file paths field
+
+    -   join the data with the people - remember we need to show every agent for every month
+
+-   Goals
+
+    -   add the goals input to the flow
+
+    -   clean the goal data to have the goal name & numeric value
+
+    -   add the goals to the combined people & data step
+
+    -   be sure that you aren't increasing the row count - the goals should be additional columns
+
+-   Metrics & Met Goal Flags
+
+    -   create a calculation for the percent of offered that weren't answered (for each agent, each month)
+
+    -   create a calculation for the average duration by agent (for each agent, each month)
+
+    -   create a calculation that determines if the sentiment score met the goal
+
+    -   create a calculation that determines if the not answered percent met the goal
+
+-   [Output the data](https://drive.google.com/file/d/1i1BO524Su6N4sMTiN_gOMb-3-FkpTUeK/view?usp=sharing)
+
+::: callout-warning
+## Number of Rows
+
+The output given here results in 1,516 rows instead of 1,620 given in the official solution
+:::
+
+## Setup
+
+```{r}
+#| message: false
+#| results: hide
+library(tidyverse)
+library(readxl)
+googledrive::drive_download("https://docs.google.com/spreadsheets/d/1zj-Tk5WiXwiBpZwagJ1r93pLVK-1gUlo")
+googledrive::drive_download("https://docs.google.com/spreadsheets/d/1ivu8S2WxkdXG2Ake2fez8l40MJ-lxrsC")
+```
+
+```{r}
+read_metrics <- function(file){
+  sheet_names <- excel_sheets(file)
+  lookup <- c(
+    "Calls Offered" = "Offered",
+    "Calls Not Answered" = "Not Answered",
+    "Calls Answered" = "Answered"
+  )
+  map(sheet_names, ~read_xlsx(file, sheet = .x) |> 
+        rename(any_of(lookup))) |> 
+    set_names(sheet_names)
+}
+
+metrics <- read_metrics("MetricData2021.xlsx") |> 
+  list_rbind(names_to = "Month")
+```
+
+```{r}
+people <- read_xlsx("PeopleData.xlsx", sheet = "People") 
+leaders <- read_xlsx("PeopleData.xlsx", sheet = "Leaders")
+locations <- read_xlsx("PeopleData.xlsx", sheet = "Location") 
+```
+
+```{r}
+file.remove("PeopleData.xlsx", "MetricData2021.xlsx")
+```
+
+## EDA
+
+::: panel-tabset
+## Table 1
+
+```{r}
+#| echo: false
+metrics
+```
+
+## Summary 1
+
+```{r}
+#| echo: false
+skimr::skim(metrics)
+```
+
+## Table 2
+
+```{r}
+#| echo: false
+people
+```
+
+## Summary 2
+
+```{r}
+#| echo: false
+skimr::skim(people)
+```
+
+## Table 3
+
+```{r}
+#| echo: false
+leaders
+```
+
+## Table 4
+
+```{r}
+#| echo: false
+locations
+```
+:::
+
+## Preppin
+
+```{r}
+output <- people |> 
+  left_join(
+    leaders,
+    by = c("Leader 1" = "id"), 
+    suffix = c("_agent", "_leader")
+    ) |> 
+  left_join(
+    locations,
+    by = c("Location ID")
+    ) |> 
+  left_join(
+    metrics,
+    by = c("id" = "AgentID")
+  ) |> 
+  transmute(
+    id,
+    `Agent Name` = paste(last_name_agent, first_name_agent, sep = ", "),
+    `Leader 1`,
+    `Leader Name` = paste(last_name_leader, first_name_leader, sep = ", "),
+    `Month Start Date` = ymd(paste("2021", Month, "01")),
+    Location, 
+    `Calls Answered`,
+    `Calls Not Answered`,
+    `Not Answered Rate` = round(`Calls Not Answered` / `Calls Offered`, 3),
+    `Not Answered Percent < 5` = 5,
+    `Met Not Answered Rate` = `Not Answered Rate` < `Not Answered Percent < 5` / 100,
+    `Total Duration`,
+    `Agent Avg Duration` = round(`Total Duration` / `Calls Answered`),
+    Transfers,
+    Sentiment,
+    `Sentiment Score >= 0` = 0,
+    `Met Sentiment Goal` = Sentiment >= `Sentiment Score >= 0`
+  )
+```
+
+## Output
+
+::: panel-tabset
+## Table
+
+```{r}
+#| echo: false
+output
+```
+
+## Summary
+
+```{r}
+#| echo: false
+skimr::skim(output)
+```
+:::

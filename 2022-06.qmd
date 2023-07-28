@@ -105,8 +105,6 @@ skimr::skim(raw_3)
 
 ## Preppin
 
-### 
-
 ```{r}
 mid_2 <- raw_2 |>
   extract(Scrabble, c("Points", "other"), "(^[0-9]+) points?:(.*)", convert = T) |> 

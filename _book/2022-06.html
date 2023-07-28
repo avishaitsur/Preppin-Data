@@ -64,6 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./2022-07.html" rel="next">
 <link href="./2022-05.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -176,6 +177,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Week 6</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2022-07.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Week 7</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -189,10 +196,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#requirements" id="toc-requirements" class="nav-link active" data-scroll-target="#requirements"><span class="header-section-number">6.1</span> Requirements</a></li>
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="header-section-number">6.2</span> Setup</a></li>
   <li><a href="#eda" id="toc-eda" class="nav-link" data-scroll-target="#eda"><span class="header-section-number">6.3</span> EDA</a></li>
-  <li><a href="#preppin" id="toc-preppin" class="nav-link" data-scroll-target="#preppin"><span class="header-section-number">6.4</span> Preppin</a>
-  <ul class="collapse">
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">6.4.1</span> </a></li>
-  </ul></li>
+  <li><a href="#preppin" id="toc-preppin" class="nav-link" data-scroll-target="#preppin"><span class="header-section-number">6.4</span> Preppin</a></li>
   <li><a href="#output" id="toc-output" class="nav-link" data-scroll-target="#output"><span class="header-section-number">6.5</span> Output</a></li>
   </ul>
 </nav>
@@ -565,8 +569,6 @@ Scaffold
 </section>
 <section id="preppin" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="preppin"><span class="header-section-number">6.4</span> Preppin</h2>
-<section id="section" class="level3" data-number="6.4.1">
-<h3 data-number="6.4.1" class="anchored" data-anchor-id="section"><span class="header-section-number">6.4.1</span> </h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mid_2 <span class="ot">&lt;-</span> raw_2 <span class="sc">|&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract</span>(Scrabble, <span class="fu">c</span>(<span class="st">"Points"</span>, <span class="st">"other"</span>), <span class="st">"(^[0-9]+) points?:(.*)"</span>, <span class="at">convert =</span> T) <span class="sc">|&gt;</span> </span>
@@ -595,7 +597,6 @@ Scaffold
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">% Chance</span><span class="st">`</span>, <span class="st">`</span><span class="at">Total Points</span><span class="st">`</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="st">`</span><span class="at">Points Rank</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
 </section>
 <section id="output" class="level2" data-number="6.5">
 <h2 data-number="6.5" class="anchored" data-anchor-id="output"><span class="header-section-number">6.5</span> Output</h2>
@@ -1030,6 +1031,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./2022-07.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Week 7</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

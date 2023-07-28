@@ -13,6 +13,7 @@ book:
     - 2022-04.qmd
     - 2022-05.qmd
     - 2022-06.qmd
+    - 2022-07.qmd
   
 format:
   html:
