@@ -250,5 +250,40 @@
     "title": "7  Week 7",
     "section": "7.5 Output",
     "text": "7.5 Output\n\nTableSummary\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\nData summary\n\n\nName\noutput\n\n\nNumber of rows\n1516\n\n\nNumber of columns\n17\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n3\n\n\nDate\n1\n\n\nlogical\n2\n\n\nnumeric\n11\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\nAgent Name\n0\n1\n9\n21\n0\n135\n0\n\n\nLeader Name\n0\n1\n13\n18\n0\n9\n0\n\n\nLocation\n0\n1\n5\n8\n0\n4\n0\n\n\n\nVariable type: Date\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nmedian\nn_unique\n\n\n\n\nMonth Start Date\n0\n1\n2021-01-01\n2021-12-01\n2021-07-01\n12\n\n\n\nVariable type: logical\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\ncount\n\n\n\n\nMet Not Answered Rate\n0\n1\n0.43\nFAL: 857, TRU: 659\n\n\nMet Sentiment Goal\n0\n1\n0.50\nFAL: 760, TRU: 756\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\nid\n0\n1.00\n64.26\n37.45\n1\n32.00\n64.00\n95.00\n135.0\n▇▇▇▇▆\n\n\nLeader 1\n0\n1.00\n4.70\n2.48\n1\n3.00\n5.00\n7.00\n9.0\n▇▇▆▇▅\n\n\nCalls Answered\n0\n1.00\n651.22\n170.79\n331\n506.75\n653.00\n794.25\n995.0\n▆▇▇▇▅\n\n\nCalls Not Answered\n0\n1.00\n41.46\n26.14\n0\n18.00\n41.00\n64.25\n109.0\n▇▇▆▆▁\n\n\nNot Answered Rate\n0\n1.00\n0.06\n0.04\n0\n0.03\n0.06\n0.09\n0.2\n▇▇▅▂▁\n\n\nNot Answered Percent &lt; 5\n0\n1.00\n5.00\n0.00\n5\n5.00\n5.00\n5.00\n5.0\n▁▁▇▁▁\n\n\nTotal Duration\n0\n1.00\n8217.81\n4341.12\n1242\n4722.00\n7740.00\n11112.75\n20979.0\n▇▇▅▃▁\n\n\nAgent Avg Duration\n0\n1.00\n12.63\n5.82\n3\n8.00\n12.00\n17.00\n25.0\n▇▆▇▆▃\n\n\nTransfers\n436\n0.71\n13.83\n8.05\n0\n7.00\n15.00\n20.00\n27.0\n▇▅▇▇▇\n\n\nSentiment\n0\n1.00\n-1.09\n59.05\n-100\n-52.00\n-1.00\n51.25\n100.0\n▇▇▇▇▇\n\n\nSentiment Score &gt;= 0\n0\n1.00\n0.00\n0.00\n0\n0.00\n0.00\n0.00\n0.0\n▁▁▇▁▁"
+  },
+  {
+    "objectID": "2022-08.html#requirements",
+    "href": "2022-08.html#requirements",
+    "title": "8  Week 8",
+    "section": "8.1 Requirements",
+    "text": "8.1 Requirements"
+  },
+  {
+    "objectID": "2022-08.html#setup",
+    "href": "2022-08.html#setup",
+    "title": "8  Week 8",
+    "section": "8.2 Setup",
+    "text": "8.2 Setup\n\nlibrary(tidyverse)\ngoogledrive::drive_download(\"https://docs.google.com/spreadsheets/d/1kb5IkxQlJoWKGPVxmHb_D7POaAKFXUl8\")\nstats &lt;- readxl::read_xlsx(\"input_pkmn_stats_and_evolutions.xlsx\", sheet = \"pkmn_stats\")\nevolutions &lt;- readxl::read_xlsx(\"input_pkmn_stats_and_evolutions.xlsx\", sheet = \"pkmn_evolutions\")\nfile.remove(\"input_pkmn_stats_and_evolutions.xlsx\")"
+  },
+  {
+    "objectID": "2022-08.html#eda",
+    "href": "2022-08.html#eda",
+    "title": "8  Week 8",
+    "section": "8.3 EDA",
+    "text": "8.3 EDA\n\nTable 1Summary 1Table 2Summary 2\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\nData summary\n\n\nName\nstats\n\n\nNumber of rows\n905\n\n\nNumber of columns\n12\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n2\n\n\nnumeric\n10\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\nname\n0\n1.00\n3\n16\n0\n905\n0\n\n\nevolves_from\n469\n0.48\n4\n11\n0\n412\n0\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\npokedex_number\n0\n1\n453.00\n261.40\n1\n227\n453\n679\n905\n▇▇▇▇▇\n\n\ngen_introduced\n0\n1\n4.18\n2.26\n1\n2\n4\n6\n8\n▇▅▇▂▆\n\n\nhp\n0\n1\n69.23\n26.28\n1\n50\n65\n80\n255\n▃▇▁▁▁\n\n\nattack\n0\n1\n76.89\n29.83\n5\n55\n75\n98\n181\n▂▇▆▂▁\n\n\ndefense\n0\n1\n71.95\n29.47\n5\n50\n68\n90\n230\n▅▇▂▁▁\n\n\nspecial_attack\n0\n1\n69.71\n29.40\n10\n46\n65\n90\n173\n▃▇▅▂▁\n\n\nspecial_defense\n0\n1\n69.92\n26.92\n20\n50\n65\n85\n230\n▇▇▂▁▁\n\n\nspeed\n0\n1\n66.09\n28.46\n5\n45\n65\n85\n200\n▅▇▅▁▁\n\n\nheight\n0\n1\n11.93\n12.33\n1\n5\n10\n15\n200\n▇▁▁▁▁\n\n\nweight\n0\n1\n642.89\n1192.25\n1\n85\n280\n655\n9999\n▇▁▁▁▁\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\nData summary\n\n\nName\nevolutions\n\n\nNumber of rows\n493\n\n\nNumber of columns\n3\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n3\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\nStage_1\n0\n1.00\n3\n11\n0\n469\n0\n\n\nStage_2\n163\n0.67\n3\n12\n0\n326\n0\n\n\nStage_3\n383\n0.22\n5\n16\n0\n110\n0"
+  },
+  {
+    "objectID": "2022-08.html#preppin",
+    "href": "2022-08.html#preppin",
+    "title": "8  Week 8",
+    "section": "8.4 Preppin",
+    "text": "8.4 Preppin\n\noutput &lt;- evolutions |&gt; \n  filter(!is.na(Stage_2)) |&gt; \n  mutate(final_evol = coalesce(Stage_3, Stage_2)) |&gt; \n  left_join(\n    stats |&gt; \n      transmute(\n        name, pokedex_number, gen_introduced,\n        initial_combat_power = rowSums(across(hp:speed))),\n    by = c(\"Stage_1\" = \"name\")\n  ) |&gt; \n  left_join(\n    stats |&gt; \n      transmute(name, final_combat_power = rowSums(across(hp:speed))),\n    by = c(\"final_evol\" = \"name\")\n  ) |&gt; \n  mutate(combat_power_increase = (final_combat_power - initial_combat_power) / initial_combat_power) |&gt; \n  arrange(combat_power_increase) |&gt; \n  select(-final_evol)"
+  },
+  {
+    "objectID": "2022-08.html#output",
+    "href": "2022-08.html#output",
+    "title": "8  Week 8",
+    "section": "8.5 Output",
+    "text": "8.5 Output\n\nTableSummary\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\nData summary\n\n\nName\noutput\n\n\nNumber of rows\n330\n\n\nNumber of columns\n8\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n3\n\n\nnumeric\n5\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\nStage_1\n0\n1.00\n4\n10\n0\n306\n0\n\n\nStage_2\n0\n1.00\n3\n12\n0\n326\n0\n\n\nStage_3\n220\n0.33\n5\n16\n0\n110\n0\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\npokedex_number\n0\n1\n410.77\n256.20\n1.00\n181.00\n397.50\n623.50\n891.0\n▇▇▆▆▅\n\n\ngen_introduced\n0\n1\n3.85\n2.24\n1.00\n2.00\n4.00\n5.00\n8.0\n▇▃▆▂▃\n\n\ninitial_combat_power\n0\n1\n303.62\n54.34\n180.00\n275.00\n305.00\n329.00\n534.0\n▂▇▃▁▁\n\n\nfinal_combat_power\n0\n1\n494.51\n46.27\n236.00\n474.25\n495.00\n524.50\n680.0\n▁▁▇▅▁\n\n\ncombat_power_increase\n0\n1\n0.67\n0.32\n-0.11\n0.48\n0.62\n0.81\n2.4\n▁▇▂▁▁"
   }
 ]

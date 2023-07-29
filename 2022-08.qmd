@@ -1,0 +1,88 @@
+# Week 8
+
+## Requirements
+
+## Setup
+
+```{r}
+#| message: false
+#| results: hide
+library(tidyverse)
+googledrive::drive_download("https://docs.google.com/spreadsheets/d/1kb5IkxQlJoWKGPVxmHb_D7POaAKFXUl8")
+stats <- readxl::read_xlsx("input_pkmn_stats_and_evolutions.xlsx", sheet = "pkmn_stats")
+evolutions <- readxl::read_xlsx("input_pkmn_stats_and_evolutions.xlsx", sheet = "pkmn_evolutions")
+file.remove("input_pkmn_stats_and_evolutions.xlsx")
+```
+
+## EDA
+
+::: panel-tabset
+## Table 1
+
+```{r}
+#| echo: false
+stats
+```
+
+## Summary 1
+
+```{r}
+#| echo: false
+skimr::skim(stats)
+```
+
+## Table 2
+
+```{r}
+#| echo: false
+evolutions
+```
+
+## Summary 2
+
+```{r}
+#| echo: false
+skimr::skim(evolutions)
+```
+:::
+
+## Preppin
+
+```{r}
+output <- evolutions |> 
+  filter(!is.na(Stage_2)) |> 
+  mutate(final_evol = coalesce(Stage_3, Stage_2)) |> 
+  left_join(
+    stats |> 
+      transmute(
+        name, pokedex_number, gen_introduced,
+        initial_combat_power = rowSums(across(hp:speed))),
+    by = c("Stage_1" = "name")
+  ) |> 
+  left_join(
+    stats |> 
+      transmute(name, final_combat_power = rowSums(across(hp:speed))),
+    by = c("final_evol" = "name")
+  ) |> 
+  mutate(combat_power_increase = (final_combat_power - initial_combat_power) / initial_combat_power) |> 
+  arrange(combat_power_increase) |> 
+  select(-final_evol)
+```
+
+## Output
+
+::: panel-tabset
+## Table
+
+```{r}
+#| echo: false
+output
+```
+
+## Summary
+
+```{r}
+#| echo: false
+skimr::skim(output)
+```
+:::
