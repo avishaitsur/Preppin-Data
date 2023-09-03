@@ -2,6 +2,32 @@
 
 ## Requirements
 
+-   [Import the data](https://docs.google.com/spreadsheets/d/1kb5IkxQlJoWKGPVxmHb_D7POaAKFXUl8/edit?usp=sharing&ouid=113142875990517226017&rtpof=true&sd=true) (excel file)
+
+-   From pkmn_stats dataset remove the columns height, weight and evolves from
+
+-   Pivot (wide to long) pkmn stats so that hp, attack, defense, special_attack, special_defense, and speed become a column called 'combat_factors'
+
+-   Using the evolutions data look up the combat_factors for each Pokémon at each stage, making sure that the combat_factors match across the row, i.e. we should be able to see the hp for Bulbasaur, Ivysaur and Venusaur on one row
+
+-   Remove any columns for 'pokedex_number' and 'gen_introduced' that were from joins at Stage 2 & 3
+
+-   If a Pokémon doesn't evolve remove it from the dataset
+
+-   Find the combat power values relating to the Pokémon's last evolution stage
+
+-   Sum together each Pokémon's combat_factors
+
+-   Find the percentage increase in combat power from the first & last evolution stage
+
+-   Sort the dataset, ascending by percentage increase
+
+    -   If using Tableau Prep, consider introducing a field to manage this sort and then hide it
+
+-   [Output the data](https://drive.google.com/file/d/11xpzmV2zNjE95P9qCU65ygyuzfZXgour/view?usp=sharing)
+
+-   Which Pokémon stats decrease from evolving?
+
 ## Setup
 
 ```{r}

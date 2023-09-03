@@ -228,6 +228,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="requirements" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="requirements"><span class="header-section-number">8.1</span> Requirements</h2>
+<ul>
+<li><p><a href="https://docs.google.com/spreadsheets/d/1kb5IkxQlJoWKGPVxmHb_D7POaAKFXUl8/edit?usp=sharing&amp;ouid=113142875990517226017&amp;rtpof=true&amp;sd=true">Import the data</a> (excel file)</p></li>
+<li><p>From pkmn_stats dataset remove the columns height, weight and evolves from</p></li>
+<li><p>Pivot (wide to long) pkmn stats so that hp, attack, defense, special_attack, special_defense, and speed become a column called ‘combat_factors’</p></li>
+<li><p>Using the evolutions data look up the combat_factors for each Pokémon at each stage, making sure that the combat_factors match across the row, i.e.&nbsp;we should be able to see the hp for Bulbasaur, Ivysaur and Venusaur on one row</p></li>
+<li><p>Remove any columns for ‘pokedex_number’ and ‘gen_introduced’ that were from joins at Stage 2 &amp; 3</p></li>
+<li><p>If a Pokémon doesn’t evolve remove it from the dataset</p></li>
+<li><p>Find the combat power values relating to the Pokémon’s last evolution stage</p></li>
+<li><p>Sum together each Pokémon’s combat_factors</p></li>
+<li><p>Find the percentage increase in combat power from the first &amp; last evolution stage</p></li>
+<li><p>Sort the dataset, ascending by percentage increase</p>
+<ul>
+<li>If using Tableau Prep, consider introducing a field to manage this sort and then hide it</li>
+</ul></li>
+<li><p><a href="https://drive.google.com/file/d/11xpzmV2zNjE95P9qCU65ygyuzfZXgour/view?usp=sharing">Output the data</a></p></li>
+<li><p>Which Pokémon stats decrease from evolving?</p></li>
+</ul>
 </section>
 <section id="setup" class="level2" data-number="8.2">
 <h2 data-number="8.2" class="anchored" data-anchor-id="setup"><span class="header-section-number">8.2</span> Setup</h2>

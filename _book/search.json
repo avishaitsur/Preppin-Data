@@ -256,7 +256,7 @@
     "href": "2022-08.html#requirements",
     "title": "8  Week 8",
     "section": "8.1 Requirements",
-    "text": "8.1 Requirements"
+    "text": "8.1 Requirements\n\nImport the data (excel file)\nFrom pkmn_stats dataset remove the columns height, weight and evolves from\nPivot (wide to long) pkmn stats so that hp, attack, defense, special_attack, special_defense, and speed become a column called ‘combat_factors’\nUsing the evolutions data look up the combat_factors for each Pokémon at each stage, making sure that the combat_factors match across the row, i.e. we should be able to see the hp for Bulbasaur, Ivysaur and Venusaur on one row\nRemove any columns for ‘pokedex_number’ and ‘gen_introduced’ that were from joins at Stage 2 & 3\nIf a Pokémon doesn’t evolve remove it from the dataset\nFind the combat power values relating to the Pokémon’s last evolution stage\nSum together each Pokémon’s combat_factors\nFind the percentage increase in combat power from the first & last evolution stage\nSort the dataset, ascending by percentage increase\n\nIf using Tableau Prep, consider introducing a field to manage this sort and then hide it\n\nOutput the data\nWhich Pokémon stats decrease from evolving?"
   },
   {
     "objectID": "2022-08.html#setup",
